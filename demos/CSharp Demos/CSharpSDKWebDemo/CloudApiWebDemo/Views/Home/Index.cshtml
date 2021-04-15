@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">FastReport's Radio</h1>
+    <p>Checkout our songs recommendations for today</p>
+    <div>
+        <p class="text-left" >
+            <a asp-controller="Home" asp-action="GetPDFRecommendations" class="btn btn-danger" > Get recommendations as PDF &nbsp;&nbsp;&nbsp;&nbsp;<img src="~/images/istockphoto-1156672386-612x612.jpg" height="40" width="40" class="rounded" /></a>
+            <a asp-controller="Home" asp-action="GetXlsxRecommendations" class="btn btn-outline-success"> Get recommendations as Excel file &nbsp;&nbsp;&nbsp;&nbsp;<img src="~/images/xls-icon.png" height="40" width="40" class="rounded" /></a>
+        </p>
+    </div>
+    <div class="align-self-lg-start">
+        @{
+
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                foreach (var b in db.Songs.ToList())
+                {
+                    <br />
+                    <p class="text-left"> <a href="/Home/SongView/?id=@b.Id"> @b.Author - @b.Alias</a></p>
+                }
+            }
+        }
+    </div>
+</div>

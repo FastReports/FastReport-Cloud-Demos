@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/23/2020 14:47:01" ReportInfo.Modified="12/07/2020 16:14:22" ReportInfo.CreatorVersion="2020.4.9.0">
+  <Dictionary>
+    <JsonDataSourceConnection Name="Connection" ConnectionString="rijcmlqOfNEsRPXFRx1BPa97v7hFZExSmfNjk15DnfSMAgFfLv/msR3J/gdB8KhQwX3+f5Sj5m9FJTPkxyHxwLbC+DU/KHrZP/UVpYM8VOAUZ90rnAw4Ia8GXyQ0TrCycK9Ls0dvWdVR5nZlzdHv0UMIPEP1ePfbWqpqSpdlv3BT/S/6Jt/YwwD0EXpB6a+sn/NVXdmvmx7m+1xwdMCYOQHXDHDvzToNTZyjU8veXhbi30M9/YC2d/XSNAQPtlr5Oy0AQJPWzetdmobK5MPOz/lEGIc/103jf60uoZiDzNUe/7ekY1hFbzkQ7txurF49BT+7eZULSirRFFd/KI+qYOtUSOOTBmPLdrEhWiLuQi3XvFWxOrewzUxQPbtg6J3t5UwSKUdefJHMEhfGhBdHFPLc7Mh3Npq6X33TMOLHOaRVSsV6B069x/lGRJ3iVtyK+z2elmH8pIT0VCrnRxfFIkkdaOCcA==">
+      <JsonTableDataSource Name="JSON1" Alias="JSON" DataType="FastReport.Data.JsonConnection.JsonParser.JsonArray" Enabled="true" TableName="JSON">
+        <Column Name="index" DataType="System.Int32"/>
+        <Column Name="item" DataType="FastReport.JsonBase">
+          <Column Name="id" DataType="System.Double"/>
+          <Column Name="author" DataType="System.String"/>
+          <Column Name="alias" DataType="System.String"/>
+          <Column Name="releaseDate" DataType="System.DateTime"/>
+          <Column Name="price" DataType="System.Double"/>
+        </Column>
+        <Column Name="array" DataType="FastReport.JsonBase"/>
+      </JsonTableDataSource>
+    </JsonDataSourceConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="47.25">
+      <TextObject Name="Text1" Left="9.45" Top="9.45" Width="463.05" Height="28.35" Text="Available books pricelist" Font="Bahnschrift SemiBold SemiConden, 18pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="51.25" Width="718.2" Height="37.8">
+      <TextObject Name="Text2" Left="9.45" Top="9.45" Width="122.85" Height="18.9" Text="Page [Page]&#13;&#10;" Font="Bahnschrift Light Condensed, 14pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="93.05" Width="718.2" Height="56.7" DataSource="JSON1">
+      <TextObject Name="Text3" Left="12" Top="10.05" Width="47.25" Height="37.8" Text="[JSON.item.Id]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="0" HorzAlign="Right" WordWrap="false" Font="Arial, 14pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text4" Left="60" Top="9.95" Width="642.6" Height="37.8" Border.Lines="Left" Text="[JSON.item.Author] - [JSON.item.Alias] ([JSON.item.ReleaseDate]) $[JSON.item.Price]" Font="Arial, 14pt">
+        <Formats>
+          <DateFormat/>
+          <GeneralFormat/>
+          <DateFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="153.75" Width="718.2" Height="75.6">
+      <ShapeObject Name="Shape1" Left="595.35" Top="28.35" Width="75.6" Height="37.8" Border.Color="Transparent" Fill.Color="Aqua" Shape="Triangle"/>
+      <ShapeObject Name="Shape2" Left="633.15" Top="9.45" Width="75.6" Height="56.7" Border.Color="Transparent" Fill.Color="Aqua" Shape="Triangle"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

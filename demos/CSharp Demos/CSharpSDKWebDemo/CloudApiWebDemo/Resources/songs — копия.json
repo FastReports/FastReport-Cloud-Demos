@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 1,
+    "Author": "Iron Maiden",
+    "Alias": "The Number of the Beast",
+    "ReleaseDate": "1997-11-20T00:00:00",
+    "Price": 4.2
+  },
+  {
+    "Id": 2,
+    "Author": "Epica",
+    "Alias": "Kingdom of Heaven - A New Age Dawns, Pt. 5",
+    "ReleaseDate": "2003-11-21T00:00:00",
+    "Price": 4.21
+  },
+  {
+    "Id": 3,
+    "Author": "Korol i Shut",
+    "Alias": "Will Jump Off the Cliff",
+    "ReleaseDate": "2011-10-28T00:00:00",
+    "Price": 60.0
+  },
+  {
+    "Id": 4,
+    "Author": "Aria",
+    "Alias": "Your New World",
+    "ReleaseDate": "2020-10-01T00:00:00",
+    "Price": 3.0
+  }
+]

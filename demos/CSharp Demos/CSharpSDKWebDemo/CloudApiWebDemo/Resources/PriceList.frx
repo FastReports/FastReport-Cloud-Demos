@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/23/2020 14:47:01" ReportInfo.Modified="12/04/2020 12:21:02" ReportInfo.CreatorVersion="1.0.0.0">
+  <Dictionary>
+    <JsonDataSourceConnection Name="Books" ConnectionString="rijcmlqREUp3l3ZoJy8HZLx8iu54YrfanbQOji9+mDIxD4JzO0yn18tFyDhEYpLMFt8V13umGJge2kLjHXamVcCr7nYvggBkOWq6M2AoTErdiSRmMKUQOa2nMdRiNaGWMNbcTnaUflHKcLmqBZFDgjpB4RQSMXR5kuF867THuVNV2bx9OkmX3VtjmDcsmPwtpUZN9M1RLiuI+7D5lHvdUnkhv9CwhE4hap2vCk6LtORyCXFDEmydzt3vBQcTnuYO06o8KbjkVIFh0D177ZAmMBRTZXzeXIl0MXC06ckUl09mcDLT3Kh+XcnOuz8Xm4hN+iSqrU+owM9NXWQeH/vcGOApycQuDT/mu12GMucjoJUUNgYvOSMMue5OITzoxuGp9kdd7RcWBdrMc9cKV5gHvA+Da2eK+sSKSk6ID4pS6X4VGF59wRCJJHdK98uOuKUlP/uTeEKZyxzpFG9yAvWS+mXwodAVVi5a1uC+ew7s5MEW5q/xNUwJ5OHVbQZe6d2gn6boRjFQJMaZ03ITOELnEACV6g+nPkSYC/IkjcFU96MX/mD4kQuuspC1NC8oGBq7rWuDnu9ZN1m81yDiooQu3x3q5fMHfDwmEWLaYoLsP3b0MVDXXueg3kDjh5qIm4m8qLvYPK/Ca2K7Q5KUeprB15Cd9vHGMTuHp4Ron9a72zHg3SyC4ZlHm0BrUQhTMjFO+c1bfYmMyJ8g4K+ogqqAEdjeUpz1KFk7Bhwt6Y5C9CGSttb87U9P+LlAq43+ZXCP/GiwG1pQIG4KqJhIk80i/TSG4j03AMRU9vet2LEQw+Y/gsNbhrIVWD5JcIl05DMdEKjWo/xvBREcpft4PmgeiqyeG1fndFqDTUIRrDFxqWRbY0T1BxXI1LEZp81Nxdgzbyfc3foxbrmmr5Z/5/6Ks0HyKtLAcVNcuXZ5zDnOQNwdvBqIj0hBVJB8vKaPIdeHLb8KOWrUCrASmNfm1bJDZSJ17j1dgukBY2+GOe2vcEo5UB8XrbomkignUaIDGmkq5IK/5bm7AFohDuwunwOqDgKItdsxGo+Bf5u0jastr328cs3jl7tH5AYRaQeeDQ62JYQn1YqaoIXERibpKkwH+r82TS7iPE2r738eO6fm5C6dawCsR8aZvtC1h5t0/QtT+9clI8EJ/yHGZwIjFmCzslHF6W5cHO0T0UpBuPlQa3t9ndThaCf1y9IJXlEmWIWqQYhP/0n">
+      <JsonTableDataSource Name="JSON" DataType="FastReport.Data.JsonConnection.JsonParser.JsonArray" Enabled="true" TableName="JSON">
+        <Column Name="index" DataType="System.Int32"/>
+        <Column Name="item" DataType="FastReport.JsonBase">
+          <Column Name="Id" DataType="System.Double"/>
+          <Column Name="Author" DataType="System.String"/>
+          <Column Name="Alias" DataType="System.String"/>
+          <Column Name="ReleaseDate" DataType="System.String"/>
+          <Column Name="Price" DataType="System.Double"/>
+        </Column>
+        <Column Name="array" DataType="FastReport.JsonBase"/>
+      </JsonTableDataSource>
+    </JsonDataSourceConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="47.25">
+      <TextObject Name="Text1" Left="9.45" Top="9.45" Width="463.05" Height="28.35" Text="Top songs recommended" Font="Bahnschrift SemiBold SemiConden, 18pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="51.25" Width="718.2" Height="37.8">
+      <TextObject Name="Text2" Left="9.45" Top="9.45" Width="122.85" Height="18.9" Text="Page [Page]&#13;&#10;" Font="Bahnschrift Light Condensed, 14pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="93.05" Width="718.2" Height="56.7" DataSource="JSON">
+      <TextObject Name="Text3" Left="12" Top="10.05" Width="47.25" Height="37.8" Text="[JSON.item.Id]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="0" HorzAlign="Right" WordWrap="false" Font="Arial, 14pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text4" Left="60" Top="9.95" Width="642.6" Height="37.8" Border.Lines="Left" Text="[JSON.item.Author] - [JSON.item.Alias] ([JSON.item.ReleaseDate]) $[JSON.item.Price]" Font="Arial, 14pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="153.75" Width="718.2" Height="75.6">
+      <ShapeObject Name="Shape1" Left="595.35" Top="28.35" Width="75.6" Height="37.8" Border.Color="Transparent" Fill.Color="IndianRed" Shape="Triangle"/>
+      <ShapeObject Name="Shape2" Left="633.15" Top="9.45" Width="75.6" Height="56.7" Border.Color="Transparent" Fill.Color="Maroon" Shape="Triangle"/>
+      <TextObject Name="Text5" Left="9.45" Top="28.35" Width="444.15" Height="18.9" Text="FastReport's Summary by [DateTime.Now.Month] [DateTime.Now.Year]" Font="Arial, 10pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

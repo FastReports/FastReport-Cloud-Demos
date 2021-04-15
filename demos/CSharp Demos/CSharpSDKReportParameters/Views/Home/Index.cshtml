@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    PrepareReportModel model = new();
+}
+
+<div class="text-center">
+    <h1 class="display-4">Barcode Generator</h1>
+    @using (Html.BeginForm("PrepareReport", "Home"))
+    {
+        <a>Report Name</a>
+        <input type="text" id="report_name" name="ReportName" value="Sample Barcode" />
+        <br />
+        <a>Barcode Numbers</a>
+        <input type="number" id="barcode_nums" name="BarcodeNums" value="2151" />
+        <br />
+        <br />
+        <input type="submit" value="Prepare report" />
+    }
+</div>

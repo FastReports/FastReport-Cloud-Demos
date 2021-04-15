@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 1,
+    "Author": "Marat Alaev",
+    "Alias": "How to be a krol",
+    "ReleaseDate": "2020-11-20T00:00:00",
+    "Price": 4.2
+  },
+  {
+    "Id": 2,
+    "Author": "Gleb Striukov",
+    "Alias": "How to be a bigger krol",
+    "ReleaseDate": "2020-11-21T00:00:00",
+    "Price": 4.21
+  },
+  {
+    "Id": 3,
+    "Author": "Sergey Susakov",
+    "Alias": "How to survive in army",
+    "ReleaseDate": "2020-10-28T00:00:00",
+    "Price": 60.0
+  },
+  {
+    "Id": 4,
+    "Author": "Lev Tolstoi",
+    "Alias": "War and piece",
+    "ReleaseDate": "1867-01-01T00:00:00",
+    "Price": 3.0
+  }
+]
