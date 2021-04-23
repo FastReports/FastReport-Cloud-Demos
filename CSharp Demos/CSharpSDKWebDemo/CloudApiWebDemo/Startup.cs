@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CSharpSDKReportParameters
+namespace CloudApiWebDemo
 {
     public class Startup
     {
@@ -26,7 +26,7 @@ namespace CSharpSDKReportParameters
             services.AddControllersWithViews();
             services.AddFastReportCloud(options =>
             {
-                options.ApiKey = "9999999999999999999999999999999999999999999999999999";
+                options.ApiKey = "9qptbsmjd114k93a4t9f8kh1tzfkzhq9udt8fwja5o45drgrcnmy";
             });
         }
 
