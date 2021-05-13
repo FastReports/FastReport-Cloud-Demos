@@ -21,7 +21,7 @@ public class App {
 
     public static void main(String[] args) {
         ApiClient defaultClient = new ApiClient(
-                "https://athena.fast-report.com",
+                "https://fastreport.cloud",
                 null,
                 new BasicAuthentication("apikey", "***PUT YOUR API KEY HERE***"),
                 null
