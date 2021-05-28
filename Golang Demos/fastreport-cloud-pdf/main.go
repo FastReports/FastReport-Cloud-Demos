@@ -102,7 +102,7 @@ func main() {
 
 	// wait for result
 	i := 0
-	for export.GetStatus() != "Success" && i < 10 {
+	for export.GetStatus() != "Success" && i < 100 {
 		export, r, err = client.ExportsApi.ExportsGetFile(auth, export.GetId()).Execute()
 		if err != nil {
 			fmt.Fprintf(os.Stdout, "Error when calling `ExportsApi.ExportsGetFile`: %v\n", err)
@@ -115,7 +115,7 @@ func main() {
 		fmt.Print("*")
 	}
 
-	if i == 10 {
+	if i == 100 {
 		fmt.Println("Timeout expired!")
 		return
 	} else {
