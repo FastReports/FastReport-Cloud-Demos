@@ -16,7 +16,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
-    compile "cloud.fastreport.sdk:fastreport-cloud-sdk:2021.1.20"
+    compile "cloud.fastreport.sdk:fastreport-cloud-sdk:2021.1.35"
 }
 
 application {
