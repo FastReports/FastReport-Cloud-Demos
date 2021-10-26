@@ -2,4 +2,4 @@
 
 ## Prerequest
 
-This demo requires (fastreport_cloud_sdk)[https://github.com/FastReports/FastReport-Cloud-Python]
+This demo requires [fastreport_cloud_sdk](https://github.com/FastReports/FastReport-Cloud-Python)
