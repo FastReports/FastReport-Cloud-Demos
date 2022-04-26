@@ -29,7 +29,7 @@
     <PageFooterBand Name="PageFooter1" Top="153.75" Width="718.2" Height="75.6">
       <ShapeObject Name="Shape1" Left="595.35" Top="28.35" Width="75.6" Height="37.8" Border.Color="Transparent" Fill.Color="IndianRed" Shape="Triangle"/>
       <ShapeObject Name="Shape2" Left="633.15" Top="9.45" Width="75.6" Height="56.7" Border.Color="Transparent" Fill.Color="Maroon" Shape="Triangle"/>
-      <TextObject Name="Text5" Left="9.45" Top="28.35" Width="444.15" Height="18.9" Text="FastReport's Summary by [DateTime.Now.Month] [DateTime.Now.Year]" Font="Arial, 10pt"/>
+      <TextObject Name="Text5" Left="9.45" Top="28.35" Width="444.15" Height="18.9" Text="FastReport's Summary by [DateTime.UtcNow.Month] [DateTime.UtcNow.Year]" Font="Arial, 10pt"/>
     </PageFooterBand>
   </ReportPage>
 </Report>

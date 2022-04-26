@@ -1,0 +1,21 @@
+{
+  "name": "vendor_name/untitled1",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "VAid",
+      "email": "8VAid8@gmail.com"
+    }
+  ],
+  "require": {
+    "fastreports/fastreport-cloud-php": "*@dev"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/FastReports/FastReport-Cloud-PHP"
+    }
+  ]
+}

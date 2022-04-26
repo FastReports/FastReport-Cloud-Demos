@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./web/api.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ./api
+    volumes:
+      - ./public:/var/www/public
+      - .api/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
