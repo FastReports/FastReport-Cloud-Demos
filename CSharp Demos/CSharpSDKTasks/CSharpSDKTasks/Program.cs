@@ -9,7 +9,7 @@ namespace CSharpSDKTasks
 {
     class Program
     {
-        private const string ApiKey = "9999999999999999999999999999999999999999999999999999";
+        private const string ApiKey = "PUT YOUR API KEY HERE";
 
         static async System.Threading.Tasks.Task Main(string[] args)
         {
@@ -22,49 +22,48 @@ namespace CSharpSDKTasks
 
             TasksClient tasksClient = new TasksClient(httpClient);
 
+            var templateClient = new TemplatesClient(httpClient);
+            var templateFolderClient = new TemplateFoldersClient(httpClient);
+            var a = new TemplateCreateVM();
+            var template = await templateClient.UploadFileAsync((await templateFolderClient.GetRootFolderAsync()).Id, a);
+
+            var reportFolderClient = new ReportFoldersClient(httpClient);
+
+            var exportFolderClient = new ExportFoldersClient(httpClient);
+
             // Create a new task
-            await tasksClient.CreateTaskAsync(new CreatePrepareTemplateTaskVM
+            var currentTask = await tasksClient.CreateTaskAsync(new CreatePrepareTemplateTaskVM
             {
+
                 Name = "My first task",
                 Type = TaskType.Prepare,
                 InputFile = new InputFileVM
                 {
-                    EntityId = "{templateId}"
+                    EntityId = template.Id
                 },
                 OutputFile = new OutputFileVM
                 {
                     FileName = "My first task generated file.fpx",
-                    FolderId = "{reports folder id}"
+                    FolderId = (await reportFolderClient.GetRootFolderAsync()).Id,
                 },
                 Exports = new List<CreateExportReportTaskVM>
-                {
-                    new CreateExportReportTaskVM
                     {
-                        Type = TaskType.ExportReport,
-                        Format = ExportFormat.Pdf,
-                        OutputFile = new OutputFileVM
+                        new CreateExportReportTaskVM
                         {
-                            FileName = "pdfFromFpxFromFrx.pdf",
-                            FolderId = "{exports folder id}"
+                            Type = TaskType.ExportReport,
+                            Format = ExportFormat.Pdf,
+                            OutputFile = new OutputFileVM
+                            {
+                                FileName = "pdfFromFpxFromFrx.pdf",
+                                FolderId = (await exportFolderClient.GetRootFolderAsync()).Id
+                            }
                         }
                     }
-                }
             });
 
-            // Get first 100 tasks from the subscription
-            var tasks = await tasksClient.GetListAsync(0, 100, subscription.Id);
-
-            // Get last task
-            string id = tasks.Tasks.LastOrDefault().Id;
-
             // Run last task
-            await tasksClient.RunTaskByIdAsync(id);
-
-            // Delete all tasks
-            foreach (var t in tasks.Tasks)
-            {
-                await tasksClient.DeleteTaskAsync(t.Id);
-            }
+            await tasksClient.RunTaskByIdAsync(currentTask.Id);
+            await tasksClient.DeleteTaskAsync(currentTask.Id);
         }
     }
 }

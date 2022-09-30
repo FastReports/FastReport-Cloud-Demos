@@ -26,7 +26,7 @@ namespace CSharpSDKReportParameters
             services.AddControllersWithViews();
             services.AddFastReportCloud(options =>
             {
-                options.ApiKey = "9qptbsmjd114k93a4t9f8kh1tzfkzhq9udt8fwja5o45drgrcnmy";
+                options.ApiKey = "PUT YOUR APIKEY HERE";
             });
         }
 

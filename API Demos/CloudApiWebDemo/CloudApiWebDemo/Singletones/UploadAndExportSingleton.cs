@@ -13,7 +13,7 @@ namespace CloudApiWebDemo.Singletones
 {
     public class UploadAndExportSingleton
     {
-        public const string apiKey = "9999999999999999999999999999999999999999999999999999";
+        public string apiKey = Program.apiKey;
         public dynamic template;
         public dynamic pdfExport;
         public dynamic xlsxExport;
@@ -27,18 +27,21 @@ namespace CloudApiWebDemo.Singletones
         {
             if (!initialized)
             {
-                template = await SendTemplateToCloud("999999999999999999999999");
+                template = await SendTemplateToCloud();
                 pdfExport = await ExportTemplateToPDF((string)template.id);
                 xlsxExport = await ExportTemplateToExcel((string)template.id);
                 initialized = true;
             }
         }
 
-        private static async Task<dynamic> SendTemplateToCloud(string folderId)
+        private static async Task<dynamic> SendTemplateToCloud()
         {
             HttpClient client = new();
             client.DefaultRequestHeaders.Add("Authorization", $"Basic {Base64Encode("apikey:" + apiKey)}");
             client.DefaultRequestHeaders.Add("User-Agent", "Cloud API user");
+            var request = await client.GetAsync(@"https://fastreport.cloud/api/rp/v1/Templates/Root");
+            var folder = await request.Content.ReadFromJsonAsync<object>();
+            var folderId = JsonConvert.DeserializeObject<dynamic>(folder.ToString()).id;
 
             string json = JsonConvert.SerializeObject(new
             {

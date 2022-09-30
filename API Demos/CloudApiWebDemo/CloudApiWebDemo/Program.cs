@@ -19,6 +19,7 @@ namespace CloudApiWebDemo
 {
     public class Program
     {
+        public static string apiKey = "PUT YOUR APIKEY HERE";
 
         public static void Main(string[] args)
         {

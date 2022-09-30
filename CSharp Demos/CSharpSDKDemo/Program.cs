@@ -14,7 +14,7 @@ namespace CSharpSDKDemo
 {
     class Program
     {
-        private const string ApiKey = "9999999999999999999999999999999999999999999999999999";
+        private const string ApiKey = "PUT YOUR APIKEY HERE";
 
 
 
@@ -33,21 +33,24 @@ namespace CSharpSDKDemo
 
             var templateFolder = subscription.TemplatesFolder.FolderId;
             var exportFolder = subscription.ExportsFolder.FolderId;
-
+            Console.WriteLine("Creating template");
             TemplateCreateVM templateCreateVM = new TemplateCreateVM()
             {
                 Name = "box.frx",
                 Content = TestData.BoxReport
             };
 
+            Console.WriteLine("Uploadind template");
             TemplateVM uploadedFile = await rpClientTemplates.UploadFileAsync(templateFolder, templateCreateVM);
 
+            Console.WriteLine("Creating pdf");
             ExportTemplateTaskVM export = new ExportTemplateTaskVM()
             {
                 FileName = "box.pdf",
                 FolderId = exportFolder,
                 Format = ExportTemplateTaskVMFormat.Pdf
             };
+            Console.WriteLine("Exporting pdf");
             ExportVM exportedFile = await rpClientTemplates.ExportAsync(uploadedFile.Id, export) as ExportVM;
             string fileId = exportedFile.Id;
             int attempts = 3;
@@ -61,7 +64,7 @@ namespace CSharpSDKDemo
             }
 
 
-
+            Console.WriteLine("Downloading pdf");
             using (var file = await downloadClient.GetExportAsync(fileId))
             {
                 using (var pdf = File.Open("report.pdf", FileMode.Create))
@@ -69,6 +72,7 @@ namespace CSharpSDKDemo
                     file.Stream.CopyTo(pdf);
                 }
             }
+            Console.WriteLine("Success!");
         }
     }
 }

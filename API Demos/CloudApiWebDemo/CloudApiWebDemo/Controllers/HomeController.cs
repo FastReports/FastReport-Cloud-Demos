@@ -22,7 +22,7 @@ namespace CloudApiWebDemo.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UploadAndExportSingleton uploadAndExport;
-        public const string apiKey = "9999999999999999999999999999999999999999999999999999";
+        public string apiKey = Program.apiKey;
 
         //application will upload template from resources folder and create export files on startup
         public HomeController(ILogger<HomeController> logger, UploadAndExportSingleton uploadAndExport)
