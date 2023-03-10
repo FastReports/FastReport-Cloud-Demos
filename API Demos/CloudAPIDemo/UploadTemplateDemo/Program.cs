@@ -26,7 +26,7 @@ namespace UploadTemplateDemo
 
         static async Task Main()
         {
-            // you can lookup API documentation here - https://fastreport.cloud/docs/
+            // you can lookup API documentation here - https://www.fast-report.com/public_download/docs/Cloud/online/en/user/en-US/index.html
 
             CloudRequestSender requestSender = new CloudRequestSender(apiKey);
 

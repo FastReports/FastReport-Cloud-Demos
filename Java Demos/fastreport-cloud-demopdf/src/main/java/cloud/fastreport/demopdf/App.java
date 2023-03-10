@@ -13,6 +13,7 @@ import com.google.api.client.http.HttpResponse;
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 
 
 public class App {
@@ -28,26 +29,27 @@ public class App {
         );
 
         try {
+            byte[] byteReport = Base64.getDecoder().decode(report);
             FileVM root = defaultClient.templatesApi().templateFoldersGetRootFolder((String) null);
             TemplateVM template = defaultClient.templatesApi().templatesUploadFile(root.getId(),
-                    new TemplateCreateVM()
+                    (TemplateCreateVM)new TemplateCreateVM()
                             .name("java.frx")
-                            .content(report)
+                            .content(byteReport)
             );
 
             FileVM exportRoot = defaultClient.exportsApi().exportFoldersGetRootFolder((String) null);
 
             ExportVM export = defaultClient.templatesApi().templatesExport(template.getId(),
-                    new ExportTemplateTaskVM()
+                    new ExportTemplateVM()
                             .fileName("java.pdf")
-                            .format(ExportTemplateTaskVM.FormatEnum.PDF)
+                            .format(ExportFormat.PDF)
                             .folderId(exportRoot.getId())
                             .pagesCount(999)
             );
 
             // wait until status ready
 
-            while (export.getStatus() != ExportVM.StatusEnum.SUCCESS){
+            while (export.getStatus() != FileStatus.SUCCESS){
                 export = defaultClient.exportsApi().exportsGetFile(export.getId());
                 try {
                     Thread.sleep(100);
@@ -57,7 +59,7 @@ public class App {
             }
 
 
-            HttpResponse response = defaultClient.downloadApi().downloadGetExportForHttpResponse(export.getId());
+            HttpResponse response = defaultClient.downloadApi().downloadGetExportForHttpResponse(export.getId(), false);
             try (BufferedInputStream in = new BufferedInputStream(response.getContent());
                  FileOutputStream fileOutputStream = new FileOutputStream("java.pdf")) {
                 byte dataBuffer[] = new byte[1024];
