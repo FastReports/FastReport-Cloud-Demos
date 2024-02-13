@@ -1,0 +1,9 @@
+{
+    "java.compile.nullAnalysis.mode": "disabled",
+    "java.project.explorer.showNonJavaResources": true,
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\wital\\ProgramT\\fastreport.cloud\\sdks\\java\\build\\libs\\fastreport-cloud-sdk-2024.1.20.jar"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
+}

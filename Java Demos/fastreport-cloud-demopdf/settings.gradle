@@ -8,3 +8,9 @@
  */
 
 rootProject.name = 'fastreport-cloud-demopdf'
+
+sourceControl {
+    gitRepository("https://github.com/FastReports/FastReport-Cloud-Java.git") {
+        producesModule("cloud.fastreport.sdk:fastreport-cloud-sdk")
+    }
+}
