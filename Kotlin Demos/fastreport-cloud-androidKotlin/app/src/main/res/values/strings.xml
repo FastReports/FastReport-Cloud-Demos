@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FastReport Cloud Demo</string>
+    <string name="upload">Upload file</string>
+    <string name="export">Export</string>
+    <string name="download">Download</string>
+    <string name="apikey_button">Input</string>
+
+    <string name="change_sub_id">Change Subscription:</string>
+    <string name="input_sub_id">Enter your subscription ID</string>
+    <string name="change_apikey">Change API-key:</string>
+    <string name="input_key">Enter your API-key</string>
+    <string name="change_parameter">Change parameter:</string>
+    <string name="input_parameter_key">Enter parameter key</string>
+    <string name="input_parameter_value">Enter parameter value</string>
+    <string name="input_template_name">Enter template name</string>
+
+</resources>
