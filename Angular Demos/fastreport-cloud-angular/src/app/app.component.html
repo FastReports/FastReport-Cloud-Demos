@@ -1,0 +1,20 @@
+<main class="main">
+  <div class="content">
+    <h1>FastReport Cloud Demo</h1>
+
+    <p>Change subscription</p>
+    <p><input name="inputSubId" type="text" [(ngModel)]="subId" placeholder="Enter your subscription ID"></p>
+
+    <p>Change API-key</p>
+    <p><input name="inputKey" type="text" [(ngModel)]="apiKey" placeholder="Enter your API-key"></p>
+
+    <button type="button" (click)="onUploadButtonClick()">Upload file</button>
+
+    <p>Change parameter:</p>
+    <p><input name="parameterKey" type="text" [(ngModel)]="parameterKey" placeholder="Enter parameter key" ></p>
+    <p><input name="parameterValue" type="text" [(ngModel)]="parameterValue" placeholder="Enter parameter value"></p>
+
+    <button type="button" (click)="onExportButtonClick()">Export</button>
+    <button class="button-container" type="button" (click)="onDownloadButtonClick()">Download</button>
+  </div>
+</main>

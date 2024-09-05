@@ -2,13 +2,16 @@
 using FastReport.Cloud.Client;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 
 namespace CSharpSDKTasks
 {
     class Program
     {
+        public static byte[] TEXT_FRX = Convert.FromBase64String("PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPFJlcG9ydCBTY3JpcHRMYW5ndWFnZT0iQ1NoYXJwIiBSZXBvcnRJbmZvLkRlc2NyaXB0aW9uPSJUaGlzIHJlcG9ydCBkZW1vbnN0cmF0ZXMgVGV4dE9iamVjdCBmZWF0dXJlcy4iIFJlcG9ydEluZm8uQ3JlYXRlZD0iMDYvMDIvMjAwOSAwMDo0NDowMSIgUmVwb3J0SW5mby5Nb2RpZmllZD0iMDgvMjcvMjAxNSAxNTo1Mzo0MyIgUmVwb3J0SW5mby5DcmVhdG9yVmVyc2lvbj0iMS4wLjAuMCI+CiAgPERpY3Rpb25hcnkvPgogIDxSZXBvcnRQYWdlIE5hbWU9IlBhZ2UxIj4KICAgIDxSZXBvcnRUaXRsZUJhbmQgTmFtZT0iUmVwb3J0VGl0bGUxIiBXaWR0aD0iNzE4LjIiIEhlaWdodD0iODUuMDUiIENhbkdyb3c9InRydWUiPgogICAgICA8VGV4dE9iamVjdCBOYW1lPSJUZXh0MjkiIFdpZHRoPSI3MTguMiIgSGVpZ2h0PSIyOC4zNSIgQW5jaG9yPSJUb3AsIExlZnQsIFJpZ2h0IiBGaWxsLkNvbG9yPSJXaGl0ZVNtb2tlIiBDYW5Hcm93PSJ0cnVlIiBUZXh0PSJbUmVwb3J0LlJlcG9ydEluZm8uRGVzY3JpcHRpb25dIiBQYWRkaW5nPSI0LCA0LCA0LCA0IiBWZXJ0QWxpZ249IkNlbnRlciIgRm9udD0iVGFob21hLCA4cHQiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDEiIFRvcD0iNDcuMjUiIFdpZHRoPSI3MTguMiIgSGVpZ2h0PSIyOC4zNSIgVGV4dD0iVGV4dE9iamVjdCIgSG9yekFsaWduPSJDZW50ZXIiIFZlcnRBbGlnbj0iQ2VudGVyIiBGb250PSJUYWhvbWEsIDE0cHQsIHN0eWxlPUJvbGQiLz4KICAgIDwvUmVwb3J0VGl0bGVCYW5kPgogICAgPERhdGFCYW5kIE5hbWU9IkRhdGExIiBUb3A9Ijg5LjA1IiBXaWR0aD0iNzE4LjIiIEhlaWdodD0iODg4LjMiIERhdGFTb3VyY2U9IiI+CiAgICAgIDxUZXh0T2JqZWN0IE5hbWU9IlRleHQzIiBMZWZ0PSIxMzIuMyIgVG9wPSIzNTkuMSIgV2lkdGg9Ijk0LjUiIEhlaWdodD0iOTQuNSIgQm9yZGVyLkxpbmVzPSJBbGwiIEJvcmRlci5Db2xvcj0iU2lsdmVyIiBUZXh0PSJUZXh0IHJvdGF0aW9uIC0gNDUgZGVncmVlcyIgSG9yekFsaWduPSJDZW50ZXIiIFZlcnRBbGlnbj0iQ2VudGVyIiBBbmdsZT0iNDUiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDQiIExlZnQ9IjIzNi4yNSIgVG9wPSIzNTkuMSIgV2lkdGg9Ijk0LjUiIEhlaWdodD0iOTQuNSIgQm9yZGVyLkxpbmVzPSJBbGwiIEJvcmRlci5Db2xvcj0iU2lsdmVyIiBUZXh0PSJUZXh0IHJvdGF0aW9uIC0gOTAgZGVncmVlcyIgQW5nbGU9IjkwIi8+CiAgICAgIDxUZXh0T2JqZWN0IE5hbWU9IlRleHQ1IiBMZWZ0PSIzNDAuMiIgVG9wPSIzNTkuMSIgV2lkdGg9Ijk0LjUiIEhlaWdodD0iOTQuNSIgQm9yZGVyLkxpbmVzPSJBbGwiIEJvcmRlci5Db2xvcj0iU2lsdmVyIiBUZXh0PSJUZXh0IHJvdGF0aW9uIC0gMTgwIGRlZ3JlZXMiIEFuZ2xlPSIxODAiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDYiIExlZnQ9IjQ0NC4xNSIgVG9wPSIzNTkuMSIgV2lkdGg9Ijk0LjUiIEhlaWdodD0iOTQuNSIgQm9yZGVyLkxpbmVzPSJBbGwiIEJvcmRlci5Db2xvcj0iU2lsdmVyIiBUZXh0PSJUZXh0IHJvdGF0aW9uIC0gMjcwIGRlZ3JlZXMiIEFuZ2xlPSIyNzAiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDgiIExlZnQ9IjkuNDUiIFRvcD0iMzExLjg1IiBXaWR0aD0iNjUyLjA1IiBIZWlnaHQ9IjM3LjgiIEZpbGwuQ29sb3I9Ik9yYW5nZSIgVGV4dD0iUk9UQVRJT04iIFZlcnRBbGlnbj0iQ2VudGVyIiBGb250PSJUYWhvbWEsIDE2cHQiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDkiIExlZnQ9IjkuNDUiIFRvcD0iNTg1LjkiIFdpZHRoPSI2NTIuMDUiIEhlaWdodD0iMzcuOCIgRmlsbC5Db2xvcj0iT3JhbmdlIiBUZXh0PSJIVE1MIFRBR1MiIFZlcnRBbGlnbj0iQ2VudGVyIiBGb250PSJUYWhvbWEsIDE2cHQiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDciIExlZnQ9IjEzMi4zIiBUb3A9IjYzMy4xNSIgV2lkdGg9IjQwNi4zNSIgSGVpZ2h0PSI5NC41IiBCb3JkZXIuTGluZXM9IkFsbCIgQm9yZGVyLkNvbG9yPSJTaWx2ZXIiIFRleHQ9IiZsdDtiJmd0O0FuZHJldyZsdDsvYiZndDsgcmVjZWl2ZWQgaGlzIEJUUyBjb21tZXJjaWFsIGluICZsdDtiJmd0OzE5NzQmbHQ7L2ImZ3Q7IGFuZCBhIFBoLkQuIGluIGludGVybmF0aW9uYWwgbWFya2V0aW5nIGZyb20gdGhlICZsdDtmb250IGNvbG9yPSZxdW90O3JlZCZxdW90OyZndDtVbml2ZXJzaXR5IG9mIERhbGxhcyZsdDsvZm9udCZndDsgaW4gMTk4MS4gSGUgaXMgZmx1ZW50IGluICZsdDtpJmd0O0ZyZW5jaCZsdDsvaSZndDsgYW5kICZsdDtpJmd0O0l0YWxpYW4mbHQ7L2kmZ3Q7IGFuZCByZWFkcyAmbHQ7aSZndDtHZXJtYW4mbHQ7L2kmZ3Q7LiBIZSBqb2luZWQgdGhlIGNvbXBhbnkgYXMgYSBzYWxlcyByZXByZXNlbnRhdGl2ZSwgd2FzIHByb21vdGVkIHRvICZsdDt1Jmd0O3NhbGVzIG1hbmFnZXImbHQ7L3UmZ3Q7IGluIEphbnVhcnkgMTk5MiBhbmQgdG8gdmljZSBwcmVzaWRlbnQgb2Ygc2FsZXMgaW4gTWFyY2ggMTk5My4iIEhvcnpBbGlnbj0iSnVzdGlmeSIgSHRtbFRhZ3M9InRydWUiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDEwIiBMZWZ0PSI5LjQ1IiBUb3A9IjQ2My4wNSIgV2lkdGg9IjY1Mi4wNSIgSGVpZ2h0PSIzNy44IiBGaWxsLkNvbG9yPSJPcmFuZ2UiIFRleHQ9IkVNQkVEREVEIEVYUFJFU1NJT05TIiBWZXJ0QWxpZ249IkNlbnRlciIgRm9udD0iVGFob21hLCAxNnB0Ii8+CiAgICAgIDxUZXh0T2JqZWN0IE5hbWU9IlRleHQxMSIgTGVmdD0iMTMyLjMiIFRvcD0iNTEwLjMiIFdpZHRoPSI0MDYuMzUiIEhlaWdodD0iNjYuMTUiIEJvcmRlci5MaW5lcz0iQWxsIiBCb3JkZXIuQ29sb3I9IlNpbHZlciIgVGV4dD0iVG9kYXkgaXMgW0RhdGVdJiMxMzsmIzEwO0N1cnJlbnQgcGFnZSBudW1iZXIgaXMgW1BhZ2VdJiMxMzsmIzEwOzIgKyAyID0gWzIgKyAyXSIvPgogICAgICA8VGV4dE9iamVjdCBOYW1lPSJUZXh0MTIiIExlZnQ9IjkuNDUiIFRvcD0iOS40NSIgV2lkdGg9IjY1Mi4wNSIgSGVpZ2h0PSIzNy44IiBGaWxsLkNvbG9yPSJPcmFuZ2UiIFRleHQ9IlRFWFQsIEJPUkRFUiwgRklMTCIgVmVydEFsaWduPSJDZW50ZXIiIEZvbnQ9IlRhaG9tYSwgMTZwdCIvPgogICAgICA8VGV4dE9iamVjdCBOYW1lPSJUZXh0MTQiIExlZnQ9IjIzNi4yNSIgVG9wPSI1Ni43IiBXaWR0aD0iOTQuNSIgSGVpZ2h0PSI5NC41IiBCb3JkZXIuTGluZXM9IkFsbCIgQm9yZGVyLkxlZnRMaW5lLkNvbG9yPSJMaW1lIiBCb3JkZXIuTGVmdExpbmUuU3R5bGU9IkRhc2hEb3QiIEJvcmRlci5MZWZ0TGluZS5XaWR0aD0iMiIgQm9yZGVyLlRvcExpbmUuU3R5bGU9IkRvdCIgQm9yZGVyLlRvcExpbmUuV2lkdGg9IjIiIEJvcmRlci5SaWdodExpbmUuQ29sb3I9IlJlZCIgQm9yZGVyLlJpZ2h0TGluZS5TdHlsZT0iRGFzaERvdCIgQm9yZGVyLlJpZ2h0TGluZS5XaWR0aD0iMiIgQm9yZGVyLkJvdHRvbUxpbmUuQ29sb3I9IkJsdWUiIEJvcmRlci5Cb3R0b21MaW5lLlN0eWxlPSJEYXNoRG90IiBCb3JkZXIuQm90dG9tTGluZS5XaWR0aD0iMiIgVGV4dD0iRGlmZmVyZW50IHN0eWxlcyBvZiBib3JkZXIgbGluZXMiIEhvcnpBbGlnbj0iQ2VudGVyIiBWZXJ0QWxpZ249IkNlbnRlciIvPgogICAgICA8VGV4dE9iamVjdCBOYW1lPSJUZXh0MTUiIExlZnQ9IjM0MC4yIiBUb3A9IjU2LjciIFdpZHRoPSI5NC41IiBIZWlnaHQ9Ijk0LjUiIEJvcmRlci5MaW5lcz0iQWxsIiBCb3JkZXIuQ29sb3I9IkdyYXkiIEZpbGw9IkxpbmVhckdyYWRpZW50IiBGaWxsLlN0YXJ0Q29sb3I9IkRhcmtPcmFuZ2UiIEZpbGwuRW5kQ29sb3I9IldoaXRlIiBGaWxsLkFuZ2xlPSIyNzAiIEZpbGwuRm9jdXM9IjEiIEZpbGwuQ29udHJhc3Q9IjEiIFRleHQ9IkdyYWRpZW50IGZpbGwiIEhvcnpBbGlnbj0iQ2VudGVyIiBWZXJ0QWxpZ249IkNlbnRlciIvPgogICAgICA8VGV4dE9iamVjdCBOYW1lPSJUZXh0MTYiIExlZnQ9IjEzMi4zIiBUb3A9IjU2LjciIFdpZHRoPSI5NC41IiBIZWlnaHQ9Ijk0LjUiIEJvcmRlci5TaGFkb3c9InRydWUiIEJvcmRlci5TaGFkb3dDb2xvcj0iR3JheSIgQm9yZGVyLkxpbmVzPSJBbGwiIEJvcmRlci5Db2xvcj0iR3JheSIgVGV4dD0iVGV4dCB3aXRoIHNoYWRvdyIgSG9yekFsaWduPSJDZW50ZXIiIFZlcnRBbGlnbj0iQ2VudGVyIi8+CiAgICAgIDxUZXh0T2JqZWN0IE5hbWU9IlRleHQxNyIgTGVmdD0iMjM2LjI1IiBUb3A9IjIwNy45IiBXaWR0aD0iOTQuNSIgSGVpZ2h0PSI5NC41IiBCb3JkZXIuTGluZXM9IkFsbCIgQm9yZGVyLkNvbG9yPSJTaWx2ZXIiIFRleHQ9IlRoaXMgdGV4dCBpcyByaWdodC1hbGlnbmVkIiBIb3J6QWxpZ249IlJpZ2h0Ii8+CiAgICAgIDxUZXh0T2JqZWN0IE5hbWU9IlRleHQxOCIgTGVmdD0iNDQ0LjE1IiBUb3A9IjIwNy45IiBXaWR0aD0iOTQuNSIgSGVpZ2h0PSI5NC41IiBCb3JkZXIuTGluZXM9IkFsbCIgQm9yZGVyLkNvbG9yPSJTaWx2ZXIiIFRleHQ9IlRoaXMgdGV4dCBpcyBib3R0b20tYWxpZ25lZCIgVmVydEFsaWduPSJCb3R0b20iLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDE5IiBMZWZ0PSIzNDAuMiIgVG9wPSIyMDcuOSIgV2lkdGg9Ijk0LjUiIEhlaWdodD0iOTQuNSIgQm9yZGVyLkxpbmVzPSJBbGwiIEJvcmRlci5Db2xvcj0iU2lsdmVyIiBUZXh0PSJUaGlzIHZlcnksIHZlcnksIHZlcnkgbG9uZyB0ZXh0IGlzIGp1c3RpZmllZCIgSG9yekFsaWduPSJKdXN0aWZ5Ii8+CiAgICAgIDxUZXh0T2JqZWN0IE5hbWU9IlRleHQyMCIgTGVmdD0iOS40NSIgVG9wPSIxNjAuNjUiIFdpZHRoPSI2NTIuMDUiIEhlaWdodD0iMzcuOCIgRmlsbC5Db2xvcj0iT3JhbmdlIiBUZXh0PSJBTElHTk1FTlQiIFZlcnRBbGlnbj0iQ2VudGVyIiBGb250PSJUYWhvbWEsIDE2cHQiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDIxIiBMZWZ0PSIxMzIuMyIgVG9wPSIyMDcuOSIgV2lkdGg9Ijk0LjUiIEhlaWdodD0iOTQuNSIgQm9yZGVyLkxpbmVzPSJBbGwiIEJvcmRlci5Db2xvcj0iU2lsdmVyIiBUZXh0PSJUaGlzIHRleHQgaXMgY2VudGVyZWQgYm90aCB2ZXJ0aWNhbGx5IGFuZCBob3Jpem9udGFsbHkiIEhvcnpBbGlnbj0iQ2VudGVyIiBWZXJ0QWxpZ249IkNlbnRlciIvPgogICAgICA8VGV4dE9iamVjdCBOYW1lPSJUZXh0MjIiIExlZnQ9IjI4LjM1IiBUb3A9IjU2LjciIFdpZHRoPSI5NC41IiBIZWlnaHQ9Ijk0LjUiIEJvcmRlci5MaW5lcz0iQWxsIiBCb3JkZXIuQ29sb3I9IkdyYXkiIFRleHQ9IlRleHQgd2l0aCBib3JkZXIiIEhvcnpBbGlnbj0iQ2VudGVyIiBWZXJ0QWxpZ249IkNlbnRlciIvPgogICAgICA8VGV4dE9iamVjdCBOYW1lPSJUZXh0MjMiIExlZnQ9IjQ0NC4xNSIgVG9wPSI1Ni43IiBXaWR0aD0iOTQuNSIgSGVpZ2h0PSI5NC41IiBCb3JkZXIuTGluZXM9IkFsbCIgQm9yZGVyLkNvbG9yPSJHcmF5IiBGaWxsPSJHbGFzcyIgRmlsbC5Db2xvcj0iU2llbm5hIiBGaWxsLkJsZW5kPSIwLjIiIEZpbGwuSGF0Y2g9ImZhbHNlIiBUZXh0PSJHbGFzcyBmaWxsIiBIb3J6QWxpZ249IkNlbnRlciIgVmVydEFsaWduPSJDZW50ZXIiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDI0IiBMZWZ0PSI1NDguMSIgVG9wPSI1Ni43IiBXaWR0aD0iOTQuNSIgSGVpZ2h0PSI5NC41IiBCb3JkZXIuTGluZXM9IkFsbCIgQm9yZGVyLkNvbG9yPSJHcmF5IiBUZXh0PSJUZXh0IGZpbGwiIEhvcnpBbGlnbj0iQ2VudGVyIiBWZXJ0QWxpZ249IkNlbnRlciIgRm9udD0iQXJpYWwsIDI0cHQsIHN0eWxlPUJvbGQiIFRleHRGaWxsPSJMaW5lYXJHcmFkaWVudCIgVGV4dEZpbGwuU3RhcnRDb2xvcj0iQmxhY2siIFRleHRGaWxsLkVuZENvbG9yPSJEYXJrT3JhbmdlIiBUZXh0RmlsbC5BbmdsZT0iOTAiIFRleHRGaWxsLkZvY3VzPSIxIiBUZXh0RmlsbC5Db250cmFzdD0iMSIvPgogICAgICA8VGV4dE9iamVjdCBOYW1lPSJUZXh0MjUiIExlZnQ9IjI4LjM1IiBUb3A9IjIwNy45IiBXaWR0aD0iOTQuNSIgSGVpZ2h0PSI5NC41IiBCb3JkZXIuTGluZXM9IkFsbCIgQm9yZGVyLkNvbG9yPSJTaWx2ZXIiIFRleHQ9Ik5vcm1hbCBhbGlnbm1lbnQiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDI2IiBMZWZ0PSI1NDguMSIgVG9wPSIyMDcuOSIgV2lkdGg9Ijk0LjUiIEhlaWdodD0iOTQuNSIgQm9yZGVyLkxpbmVzPSJBbGwiIEJvcmRlci5Db2xvcj0iU2lsdmVyIiBUZXh0PSJUaGlzIHRleHQgaXMgYWxpZ25lZCB0byByaWdodCBib3R0b20iIEhvcnpBbGlnbj0iUmlnaHQiIFZlcnRBbGlnbj0iQm90dG9tIi8+CiAgICAgIDxUZXh0T2JqZWN0IE5hbWU9IlRleHQyNyIgTGVmdD0iOS40NSIgVG9wPSI3MzcuMSIgV2lkdGg9IjY1Mi4wNSIgSGVpZ2h0PSIzNy44IiBGaWxsLkNvbG9yPSJPcmFuZ2UiIFRleHQ9IlVOREVSTElORVMiIFZlcnRBbGlnbj0iQ2VudGVyIiBGb250PSJUYWhvbWEsIDE2cHQiLz4KICAgICAgPFRleHRPYmplY3QgTmFtZT0iVGV4dDI4IiBMZWZ0PSIyMzYuMjUiIFRvcD0iNzg0LjM1IiBXaWR0aD0iMTc5LjU1IiBIZWlnaHQ9IjkyLjUiIEJvcmRlci5MaW5lcz0iQWxsIiBCb3JkZXIuQ29sb3I9IlNpbHZlciIgVGV4dD0iVGhpcyB0ZXh0IG9iamVjdCBoYXMgVW5kZXJsaW5lcyBwcm9wZXJ0eSBzZXQgdG8gdHJ1ZS4iIFVuZGVybGluZXM9InRydWUiLz4KICAgIDwvRGF0YUJhbmQ+CiAgICA8UGFnZUZvb3RlckJhbmQgTmFtZT0iUGFnZUZvb3RlcjEiIFRvcD0iOTgxLjM1IiBXaWR0aD0iNzE4LjIiIEhlaWdodD0iMjguMzUiIEZpbGwuQ29sb3I9IldoaXRlU21va2UiPgogICAgICA8VGV4dE9iamVjdCBOYW1lPSJUZXh0MzAiIExlZnQ9IjkuNDUiIFdpZHRoPSIyMTcuMzUiIEhlaWdodD0iMjguMzUiIEN1cnNvcj0iSGFuZCIgSHlwZXJsaW5rLlZhbHVlPSJodHRwczovL3d3dy5mYXN0LXJlcG9ydC5jb20vZW4vcHJvZHVjdC9mYXN0LXJlcG9ydC1uZXQvIiBUZXh0PSJHZW5lcmF0ZWQgYnkgRmFzdFJlcG9ydCAuTkVUIiBWZXJ0QWxpZ249IkNlbnRlciIgRm9udD0iVGFob21hLCA4cHQsIHN0eWxlPVVuZGVybGluZSIgVGV4dEZpbGwuQ29sb3I9IkJsdWUiLz4KICAgIDwvUGFnZUZvb3RlckJhbmQ+CiAgPC9SZXBvcnRQYWdlPgo8L1JlcG9ydD4K");
         private const string ApiKey = "PUT YOUR API KEY HERE";
 
         static async System.Threading.Tasks.Task Main(string[] args)
@@ -17,15 +20,19 @@ namespace CSharpSDKTasks
             httpClient.BaseAddress = new Uri("https://fastreport.cloud");
             httpClient.DefaultRequestHeaders.Authorization = new FastReportCloudApiKeyHeader(ApiKey);
             var subscriptions = new SubscriptionsClient(httpClient);
+            var userSettingsClient = new UserSettingsClient(httpClient);
 
-            var subscription = (await subscriptions.GetSubscriptionsAsync(0, 10)).Subscriptions.FirstOrDefault();
+            var userSettings = await userSettingsClient.GetCurrentUserSettingsAsync();
+
+            var subscriptionId = userSettings.DefaultSubscription;
 
             TasksClient tasksClient = new TasksClient(httpClient);
 
             var templateClient = new TemplatesClient(httpClient);
             var templateFolderClient = new TemplateFoldersClient(httpClient);
-            var a = new TemplateCreateVM();
-            var template = await templateClient.UploadFileAsync((await templateFolderClient.GetRootFolderAsync()).Id, a);
+
+            var template = await templateClient.UploadFileV2Async((await templateFolderClient.GetRootFolderAsync(subscriptionId)).Id,
+                fileContent: new FileParameter(new MemoryStream(TEXT_FRX), "testFile.frx"));
 
             var reportFolderClient = new ReportFoldersClient(httpClient);
 
@@ -34,9 +41,8 @@ namespace CSharpSDKTasks
             // Create a new task
             var currentTask = await tasksClient.CreateTaskAsync(new CreatePrepareTemplateTaskVM
             {
-
+                SubscriptionId = subscriptionId,
                 Name = "My first task",
-                Type = TaskType.Prepare,
                 InputFile = new InputFileVM
                 {
                     EntityId = template.Id
@@ -44,21 +50,22 @@ namespace CSharpSDKTasks
                 OutputFile = new OutputFileVM
                 {
                     FileName = "My first task generated file.fpx",
-                    FolderId = (await reportFolderClient.GetRootFolderAsync()).Id,
+                    FolderId = (await reportFolderClient.GetRootFolderAsync(subscriptionId)).Id,
                 },
-                Exports = new List<CreateExportReportTaskVM>
+                Exports = new List<CreateExportReportTaskVM>()
+                {
+                    new CreateExportReportTaskVM
                     {
-                        new CreateExportReportTaskVM
+                        SubscriptionId = subscriptionId,
+                        Name = "ExportReportTask",
+                        Format = ExportFormat.Pdf,
+                        OutputFile = new OutputFileVM
                         {
-                            Type = TaskType.ExportReport,
-                            Format = ExportFormat.Pdf,
-                            OutputFile = new OutputFileVM
-                            {
                                 FileName = "pdfFromFpxFromFrx.pdf",
-                                FolderId = (await exportFolderClient.GetRootFolderAsync()).Id
-                            }
+                            FolderId = (await exportFolderClient.GetRootFolderAsync()).Id
                         }
                     }
+                }
             });
 
             // Run last task
