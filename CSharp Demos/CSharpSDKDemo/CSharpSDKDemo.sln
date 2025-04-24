@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30711.63
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpSDKDemo", "CSharpSDKDemo.csproj", "{98EA5F16-483F-4E8F-8D63-B64388A587FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpSDKDemo", "CSharpSDKDemo\CSharpSDKDemo.csproj", "{588A38D8-9FA2-4DF2-83EE-8FA01753B362}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{98EA5F16-483F-4E8F-8D63-B64388A587FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98EA5F16-483F-4E8F-8D63-B64388A587FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98EA5F16-483F-4E8F-8D63-B64388A587FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98EA5F16-483F-4E8F-8D63-B64388A587FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{588A38D8-9FA2-4DF2-83EE-8FA01753B362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{588A38D8-9FA2-4DF2-83EE-8FA01753B362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{588A38D8-9FA2-4DF2-83EE-8FA01753B362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{588A38D8-9FA2-4DF2-83EE-8FA01753B362}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9A316239-53C4-4596-AC10-CE036794FDC6}
+		SolutionGuid = {D15C4212-F5D2-432C-8132-F457C1F499A0}
 	EndGlobalSection
 EndGlobal
