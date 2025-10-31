@@ -32,18 +32,25 @@ namespace UploadTemplateDemo
 
             dynamic templateRootFolder = await requestSender.SendRequestAsync("https://fastreport.cloud/api/rp/v1/Templates/Root", CloudRequestSender.RequestMethod.GET);
 
-            dynamic template = await requestSender.SendRequestAsync($"https://fastreport.cloud/api/rp/v1/Templates/Folder/{templateRootFolder.id}/File",
-                CloudRequestSender.RequestMethod.POST, boxFileVM);
+            string filePath = "../../../../Box.frx";
+            var fileContent = new MultipartFormDataContent();
+            var fileStreamContent = new StreamContent(File.OpenRead(filePath));
+            fileContent.Add(fileStreamContent, "FileContent", Path.GetFileName(filePath));
+
+            dynamic template = await requestSender.SendRequestAsync(
+                $"https://fastreport.cloud/api/rp/v2/Templates/Folder/{templateRootFolder.id}/File",
+                CloudRequestSender.RequestMethod.POST,
+                fileContent);
 
             dynamic export = await requestSender.SendRequestAsync($"https://fastreport.cloud/api/rp/v1/Templates/File/{template.id}/Export", CloudRequestSender.RequestMethod.POST,
-                new ExportVM() { fileName = "exportedByScript.pdf", format = "Pdf" });
-            
+               new ExportVM() { fileName = "exportedByScript.pdf", format = "Pdf" });
+
             await requestSender.SendRequestAsync($"https://fastreport.cloud/download/e/{export.id}",
                 CloudRequestSender.RequestMethod.GET);
 
             await requestSender.SendRequestAsync($"https://fastreport.cloud/api/rp/v1/Templates/File/{template.id}",
                 CloudRequestSender.RequestMethod.DELETE);
-            
+
             await requestSender.SendRequestAsync($"https://fastreport.cloud/api/rp/v1/Exports/File/{export.id}",
                 CloudRequestSender.RequestMethod.DELETE);
         }

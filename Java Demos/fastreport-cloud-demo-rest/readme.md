@@ -1,21 +1,22 @@
-# FastReport Cloud Java SDK Demo
+# FastReport Cloud Java REST API Demo
 
 ## Overview
-This console application demonstrates working with the FastReport Cloud Java SDK:
+This console demo application demonstrates working with the FastReport Cloud API using Java:
 - Uploading a report template (.frx)
 - Exporting the template to PDF format
 - Downloading the exported file
 
 ## Getting Started
 
-1. Install the [FastReport Cloud Java SDK](https://github.com/FastReports/FastReport-Cloud-Java)
-2. To use this application, enter your API key for authentication and authorization
-3. Use `gradlew.bat build --refresh-dependencies` to build the application
-4. Use `gradlew run` to run the application
+To use this application, enter your API key and Subscription ID for authentication and authorization
 
 ## Documentation
 For implementation details using FastReport Cloud, see:
 - [FastReport Cloud Official Documentation](https://www.fast-report.com/public_download/docs/Cloud/online/en/user/en-US/user/index.html)
+
+### REST API References:
+- [User Manual REST API](https://www.fast-report.com/public_download/docs/Cloud/online/en/user/en-US/programmer/guides/rest_api.html)
+- [REST API Documentation](https://www.fast-report.com/public_download/docs/Cloud/online/en/rest_api/en-US/ApiKeys.html)
 
 ## Support 
 

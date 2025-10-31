@@ -45,7 +45,7 @@ namespace UploadTemplateDemo
 
                         using (Stream streamToReadFrom = await response.Content.ReadAsStreamAsync())
                         {
-                            using (var fs = new FileStream("../../../Downloads/ExportedReport.pdf", FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
+                            using (var fs = new FileStream("../../../../ExportedReport.pdf", FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
                             {
                                 await streamToReadFrom.CopyToAsync(fs);
                             }
@@ -55,10 +55,16 @@ namespace UploadTemplateDemo
                     break;
                 case RequestMethod.POST:
                     if (body == null) throw new ArgumentException("You can't have body equal to null in POST request");
-
-                    json = JsonConvert.SerializeObject(body);
-                    data = new StringContent(json, Encoding.UTF8, "application/json");
-                    response = await client.PostAsync(request, data);
+                    else if (body is MultipartFormDataContent multipartContent)
+                    {
+                        response = await client.PostAsync(request, multipartContent);
+                    }
+                    else
+                    {
+                        json = JsonConvert.SerializeObject(body);
+                        data = new StringContent(json, Encoding.UTF8, "application/json");
+                        response = await client.PostAsync(request, data);
+                    }
                     break;
                 case RequestMethod.PUT:
 

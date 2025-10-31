@@ -13,7 +13,7 @@ namespace CloudApiWebDemo.Singletones
 {
     public class UploadAndExportSingleton
     {
-        public string apiKey = Program.apiKey;
+        public static string apiKey = Program.apiKey;
         public dynamic template;
         public dynamic pdfExport;
         public dynamic xlsxExport;

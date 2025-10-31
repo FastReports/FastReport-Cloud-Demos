@@ -12,8 +12,8 @@ public class App {
         String exportFolder = "";
         String templateId = "";
         String exportId = "";
-        String apiKey = "pr35g73rk5jgcazjb75e8wb8otdm3zauh9p5xbddm9ygtmu9s1ao";
-        String subId = "6051f2a06c07a10001737394";
+        String apiKey = "**PUT YOUR API KEY HERE**";
+        String subId = "**PUT YOUR SUBSCRIPTION ID HERE**";
 
         File file = new File("Template.frx");
 

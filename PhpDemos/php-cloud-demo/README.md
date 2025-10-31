@@ -1,17 +1,15 @@
-# FastReport Cloud Java SDK Demo
+# FastReport Cloud PHP SDK Demo
 
 ## Overview
-This console application demonstrates working with the FastReport Cloud Java SDK:
+This console demo application demonstrates working with the FastReport Cloud PHP SDK:
 - Uploading a report template (.frx)
 - Exporting the template to PDF format
 - Downloading the exported file
 
 ## Getting Started
 
-1. Install the [FastReport Cloud Java SDK](https://github.com/FastReports/FastReport-Cloud-Java)
+1. Install the [FastReport Cloud PHP SDK](https://github.com/FastReports/FastReport-Cloud-PHP)
 2. To use this application, enter your API key for authentication and authorization
-3. Use `gradlew.bat build --refresh-dependencies` to build the application
-4. Use `gradlew run` to run the application
 
 ## Documentation
 For implementation details using FastReport Cloud, see:

@@ -1,4 +1,4 @@
-# Go example for FastReport Cloud SDK
+# FastReport Cloud Go Demo
 
 ## Overview
 
@@ -33,8 +33,8 @@ You can replace the `report.frx` file with any template file and also change the
 
 ## Documentation
 
-[FastReport Cloud Golang SDK documentation](https://github.com/FastReports/gofrcloud/blob/main/README.md)
-[REST API documentation](https://fastreport.cloud/en/docs/guides/rest_api)
+- [FastReport Cloud Golang SDK documentation](https://github.com/FastReports/gofrcloud/blob/main/README.md)
+- [REST API documentation](https://fastreport.cloud/en/docs/guides/rest_api)
 
 ## Support 
 
@@ -42,11 +42,10 @@ Contact us with any questions using [our website](https://www.fast-report.com/en
 
 ## Useful links
 
-[FastReport Designer Community Edition](https://github.com/FastReports/FastReport/releases)
+- [FastReport Designer Community Edition](https://github.com/FastReports/FastReport/releases)
+- [FastReport Cloud home site](https://fastreport.cloud)
 
-[FastReport Cloud home site](https://fastreport.cloud)
-
-[FastReport Cloud SDK for Golang](https://github.com/FastReports/gofrcloud)
+- [FastReport Cloud SDK for Golang](https://github.com/FastReports/gofrcloud)
 
 
 
